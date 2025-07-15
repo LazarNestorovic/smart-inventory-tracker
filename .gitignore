@@ -1,0 +1,30 @@
+# Build results
+bin/
+obj/
+
+# VS folder
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Backup & log files
+*.log
+*.tmp
+
+# Auto-generated files
+*.vsidx
+*.dbmdl
+*.cache
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+
+# Others
+TestResults/
