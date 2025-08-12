@@ -18,6 +18,14 @@ namespace SmartInventoryTracker.Models
 
         public string TableName => "Users";
 
+        public User(int id, string username, string password, UserRoles role)
+        {
+            Id = id;
+            Username = username;
+            Password = password;
+            Role = role;
+        }
+
         public Dictionary<string, object> ToSqlParams()
         {
             return new Dictionary<string, object>
