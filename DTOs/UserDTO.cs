@@ -69,7 +69,13 @@ namespace SmartInventoryTracker.DTOs
 
         public User ToUser()
         {
-            return new User(Id, Username, Password, Role);
+            return new User
+            { 
+                Id = this.Id,
+                Username = this.Username,
+                Password = this.Password,
+                Role = this.Role 
+            };
         }
     }
 }
