@@ -119,6 +119,32 @@ namespace SmartInventoryTracker.DTOs
                 }
             }
         }
+
+        private bool deleted;
+        public bool Deleted
+        {
+            get => deleted;
+            set
+            {
+                if (value != deleted)
+                {
+                    deleted = value;
+                }
+            }
+        }
+
+        private string status;
+        public string Status
+        {
+            get => status;
+            set
+            {
+                if (value != status)
+                {
+                    status = value;
+                }
+            }
+        }
         public ProductDTO(Product product)
         {
             Id = product.Id;
@@ -130,6 +156,7 @@ namespace SmartInventoryTracker.DTOs
             Category = product.Category != null ? new CategoryDTO(product.Category) : null;
             SupplierId = product.SupplierId;
             Supplier = product.Supplier != null ? new SupplierDTO(product.Supplier) : null;
+            Deleted = product.Deleted;
         }
         public Product ToProduct()
         {
@@ -143,7 +170,8 @@ namespace SmartInventoryTracker.DTOs
                 CategoryId = CategoryId,
                 Category = Category != null ? Category.ToCategory() : null,
                 SupplierId = SupplierId,
-                Supplier = Supplier != null ? Supplier.ToSupplier() : null
+                Supplier = Supplier != null ? Supplier.ToSupplier() : null,
+                Deleted = Deleted
             };
         }
     }

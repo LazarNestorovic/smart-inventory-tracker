@@ -1,4 +1,5 @@
-﻿using SmartInventoryTracker.Models;
+﻿using SmartInventoryTracker.Interfaces;
+using SmartInventoryTracker.Models;
 using SmartInventoryTracker.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartInventoryTracker.Repositories
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly SQLiteSerializable<Product> _serializer;
         public ProductRepository(string connectionString)
@@ -39,6 +40,19 @@ namespace SmartInventoryTracker.Repositories
         public void DeleteProduct(int id)
         {
             _serializer.Delete(id);
+        }
+
+        public Product? GetDeletedProductByCode(string trimmedCode)
+        { 
+            var products = GetAllProducts();
+            foreach (var product in products)
+            {
+                if (product.Deleted && product.ProductCode == trimmedCode)
+                {
+                    return product;
+                }
+            }
+            return null;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace SmartInventoryTracker.Models
         {
             return new Dictionary<string, object>
             {
-                //{ "Id", Id },
+                { "Id", Id },
                 { "Username", Username },   
                 { "Password", Password },
                 { "Role", (int)Role }

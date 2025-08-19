@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SmartInventoryTracker.ViewModels;
+using SmartInventoryTracker.Views.WorkerViews;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +18,13 @@ using System.Windows.Shapes;
 
 namespace SmartInventoryTracker.Views
 {
-    /// <summary>
-    /// Interaction logic for LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        private LoginViewModel _loginViewModel;
+        public LoginWindow(LoginViewModel loginViewModel)
         {
             InitializeComponent();
+            _loginViewModel = loginViewModel;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -30,12 +32,14 @@ namespace SmartInventoryTracker.Views
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            // Ova logika je primer - u pravoj aplikaciji koristiš sigurnu proveru
-            if (username == "admin" && password == "password")
+            var user = _loginViewModel.Login(username, password);
+
+            if (user != null)
             {
-                // Navigacija na MainPage
-                //NavigationService.Navigate(new MainPage());
-                MessageBox.Show("User exits");
+                MessageBox.Show($"Welcome, {user.Username}!");
+                WorkersMainWindow workersMainWindow = new WorkersMainWindow(user, App.ServiceProvider.GetService<WorkersMainWindowViewModel>());
+                workersMainWindow.Show();
+                this.Close();
             }
             else
             {

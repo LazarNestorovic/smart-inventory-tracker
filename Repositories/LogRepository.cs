@@ -1,4 +1,5 @@
-﻿using SmartInventoryTracker.Models;
+﻿using SmartInventoryTracker.Interfaces;
+using SmartInventoryTracker.Models;
 using SmartInventoryTracker.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartInventoryTracker.Repositories
 {
-    public class LogRepository
+    public class LogRepository : ILogRepository
     {
         private readonly SQLiteSerializable<Log> _serializer;
         public LogRepository(string connectionString)

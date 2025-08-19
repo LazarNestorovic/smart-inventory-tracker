@@ -20,6 +20,7 @@ namespace SmartInventoryTracker.Models
         public Category? Category { get; set; }
         public int SupplierId { get; set; }
         public Supplier? Supplier { get; set; }
+        public bool Deleted { get; set; } = false;
 
         public string TableName => "Products";
 
@@ -33,7 +34,8 @@ namespace SmartInventoryTracker.Models
                 { "MinimumStock", MinimumStock },
                 { "Quantity", Quantity },
                 { "CategoryId", CategoryId },
-                { "SupplierId", SupplierId }
+                { "SupplierId", SupplierId },
+                { "Deleted", Deleted }
             };
         }
 
@@ -46,6 +48,7 @@ namespace SmartInventoryTracker.Models
             Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
             CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
             SupplierId = reader.GetInt32(reader.GetOrdinal("SupplierId"));
+            Deleted = reader.GetBoolean(reader.GetOrdinal("Deleted"));
         }
     }
 }
