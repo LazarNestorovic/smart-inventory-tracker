@@ -1,4 +1,5 @@
-﻿using SmartInventoryTracker.Models;
+﻿using SmartInventoryTracker.Interfaces;
+using SmartInventoryTracker.Models;
 using SmartInventoryTracker.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartInventoryTracker.Repositories
 {
-    public class SupplierRepository
+    public class SupplierRepository : ISupplierRepository
     {
         private readonly SQLiteSerializable<Supplier> _serializer;
         public SupplierRepository(string connectionString)

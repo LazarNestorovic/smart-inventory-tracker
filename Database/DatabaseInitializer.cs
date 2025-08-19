@@ -45,6 +45,7 @@ namespace SmartInventoryTracker.Database
                     Quantity INTEGER NOT NULL,
                     SupplierId INTEGER NOT NULL,
                     CategoryId INTEGER NOT NULL,
+                    Deleted BOOLEAN NOT NULL DEFAULT 0,
                     FOREIGN KEY (CategoryId) REFERENCES Categories(Id),
                     FOREIGN KEY (SupplierId) REFERENCES Suppliers(Id)
                 );";

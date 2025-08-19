@@ -1,17 +1,17 @@
-﻿using SmartInventoryTracker.Models;
+﻿using SmartInventoryTracker.Interfaces;
+using SmartInventoryTracker.Models;
 using SmartInventoryTracker.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartInventoryTracker.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
-        // This class will handle user-related database operations
-        // For now, it is empty, but you can implement methods like AddUser, GetUser, UpdateUser, DeleteUser, etc.
         private readonly SQLiteSerializable<User> _serializer;
         public UserRepository(string connectionString)
         {
@@ -27,6 +27,19 @@ namespace SmartInventoryTracker.Repositories
         public User? GetUserById(int id)
         {
             return _serializer.GetById(id);
+        }
+
+        public User? GetByUsername (string username)
+        {
+            List<User> temp = GetAllUsers();
+            foreach (User u in temp)
+            {
+                if (u.Username == username)
+                {
+                    return u;
+                }
+            }
+            return null;
         }
 
         public List<User> GetAllUsers()

@@ -29,6 +29,7 @@ namespace SmartInventoryTracker.Serializer
             foreach (T obj in objs)
             {
                 var parameters = obj.ToSqlParams();
+                parameters.Remove("Id");
                 var columnNames = string.Join(", ", parameters.Keys);
                 var parameterNames = string.Join(", ", parameters.Keys.Select(k => "@" + k));
 
@@ -99,7 +100,9 @@ namespace SmartInventoryTracker.Serializer
         {
             if (obj == null) return;
 
-            var parameters = obj.ToSqlParams();
+            var allParameters = obj.ToSqlParams();
+            var idValue = allParameters["Id"]; 
+            var parameters = allParameters.Where(kvp => kvp.Key != "Id").ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             var setClause = string.Join(", ", parameters.Where(kvp => kvp.Key != "Id").Select(kvp => $"{kvp.Key} = @{kvp.Key}"));
 
             string sql = $"UPDATE {obj.TableName} SET {setClause} WHERE Id = @Id";
@@ -113,7 +116,7 @@ namespace SmartInventoryTracker.Serializer
             {
                 command.Parameters.AddWithValue("@" + kvp.Key, kvp.Value);
             }
-
+            command.Parameters.AddWithValue("@Id", idValue);
             command.ExecuteNonQuery();
 
         }
