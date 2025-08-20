@@ -31,7 +31,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
         {
             try
             {
-                UpdateButton.IsEnabled = false;
                 UpdateButton.Content = "Updating...";
 
                 bool success = _viewModel.UpdateProduct();
@@ -39,7 +38,7 @@ namespace SmartInventoryTracker.Views.WorkerViews
                 if (success)
                 {
                     MessageBox.Show(
-                        "Product added successfully!",
+                        "Product updated successfully!",
                         "Success",
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
@@ -66,7 +65,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
             }
             finally
             {
-                UpdateButton.IsEnabled = _viewModel.IsValid;
                 UpdateButton.Content = "Update Product";
             }
         }
@@ -94,8 +92,8 @@ namespace SmartInventoryTracker.Views.WorkerViews
         {
             return !string.IsNullOrWhiteSpace(_viewModel.ProductName) ||
                    !string.IsNullOrWhiteSpace(_viewModel.ProductCode) ||
-                   _viewModel.Quantity > 0 ||
-                   _viewModel.MinimumStock > 1 ||
+                   !string.IsNullOrWhiteSpace(_viewModel.Quantity) ||
+                   !string.IsNullOrWhiteSpace(_viewModel.MinimumStock) ||
                    _viewModel.SelectedCategory != null ||
                    _viewModel.SelectedSupplier != null;
         }

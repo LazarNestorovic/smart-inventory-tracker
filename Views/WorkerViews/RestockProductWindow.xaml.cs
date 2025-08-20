@@ -31,7 +31,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
         {
             try
             {
-                RestockButton.IsEnabled = false;
                 RestockButton.Content = "Restocking...";
 
                 bool success = _viewModel.RestockProduct();
@@ -66,7 +65,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
             }
             finally
             {
-                RestockButton.IsEnabled = _viewModel.IsValid;
                 RestockButton.Content = "Restock Product";
             }
         }
@@ -92,7 +90,7 @@ namespace SmartInventoryTracker.Views.WorkerViews
 
         private bool HasUserEnteredData()
         {
-            return _viewModel.RestockAmount > 0;
+            return !string.IsNullOrWhiteSpace(_viewModel.RestockAmount);
         }
     }
 }

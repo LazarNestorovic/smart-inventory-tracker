@@ -61,7 +61,7 @@ namespace SmartInventoryTracker.ViewModels
             set
             {
                 _productName = value;
-                ValidateProductName();  
+                //ValidateProductName();  
                 ValidateForm();
                 OnPropertyChanged();
             }
@@ -73,7 +73,7 @@ namespace SmartInventoryTracker.ViewModels
             set
             {
                 _productCode = value;
-                ValidateProductCode();
+                //ValidateProductCode();
                 ValidateForm();
                 OnPropertyChanged();
             }
@@ -85,7 +85,7 @@ namespace SmartInventoryTracker.ViewModels
             set
             {
                 _quantity = value;
-                ValidateQuantity();
+               // ValidateQuantity();
                 ValidateForm();
                 OnPropertyChanged();
             }
@@ -97,7 +97,7 @@ namespace SmartInventoryTracker.ViewModels
             set
             {
                 _minimumStock = value;
-                ValidateMinimumStock();
+               // ValidateMinimumStock();
                 ValidateForm();
                 OnPropertyChanged();
             }
@@ -109,7 +109,7 @@ namespace SmartInventoryTracker.ViewModels
             set
             {
                 _selectedCategory = value;
-                ValidateCategory();
+                //ValidateCategory();
                 ValidateForm();
                 OnPropertyChanged();
             }
@@ -121,7 +121,7 @@ namespace SmartInventoryTracker.ViewModels
             set
             {
                 _selectedSupplier = value;
-                ValidateSupplier();
+                //ValidateSupplier();
                 ValidateForm();
                 OnPropertyChanged();
             }

@@ -29,7 +29,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
         {
             try
             {
-                SaveButton.IsEnabled = false;
                 SaveButton.Content = "Saving...";
 
                 bool success = _viewModel.SaveLog();
@@ -64,7 +63,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
             }
             finally
             {
-                SaveButton.IsEnabled = _viewModel.IsValid;
                 SaveButton.Content = "Save Log";
             }
         }

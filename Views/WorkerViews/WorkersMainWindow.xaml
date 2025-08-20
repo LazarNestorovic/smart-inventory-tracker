@@ -386,6 +386,7 @@
                 <DataGrid x:Name="ItemTable" Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False"
                       RowBackground="#181A1B"
                       AlternatingRowBackground="#181A1B"
+                      IsReadOnly="True"
                       Background="Transparent"
                       Foreground="White" SelectionChanged="DataGrid_SelectionChanged">
 

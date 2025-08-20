@@ -18,7 +18,7 @@ namespace SmartInventoryTracker.ViewModels
         private readonly IProductRepository _productRepository;
         private readonly ILogRepository _logRepository;
         private ProductDTO selectedProduct;
-        private int _restockAmount;
+        private string _restockAmount;
         private bool _isValid = true;
 
         public RestockProductViewModel(
@@ -27,7 +27,6 @@ namespace SmartInventoryTracker.ViewModels
         {
             _productRepository = productRepository;
             _logRepository = logRepository;
-            _restockAmount = 0;
         }
 
         public ProductDTO SelectedProduct
@@ -40,7 +39,7 @@ namespace SmartInventoryTracker.ViewModels
             }
         }
        
-        public int RestockAmount
+        public string RestockAmount
         {
             get => _restockAmount;
             set
@@ -82,13 +81,22 @@ namespace SmartInventoryTracker.ViewModels
 
         private void ValidateRestockAmount()
         {
-            if (RestockAmount < 0)
+            if (string.IsNullOrWhiteSpace(RestockAmount))
             {
                 IsValid = false;
                 return;
             }
-
-            if (RestockAmount > 999999)
+            if (!int.TryParse(RestockAmount, out int number))
+            {
+                IsValid = false;
+                return;
+            }
+            if (number < 0)
+            {
+                IsValid = false;
+                return;
+            }
+            if (number > 999999)
             {
                 IsValid = false;
                 return;
@@ -115,13 +123,13 @@ namespace SmartInventoryTracker.ViewModels
                     return false;
                 }
 
-                SelectedProduct.Quantity += RestockAmount;
+                SelectedProduct.Quantity += int.Parse(RestockAmount);
                 _productRepository.UpdateProduct(SelectedProduct.ToProduct());
 
                 _logRepository.AddLog(new Log
                 {
                     Type = Enums.LogType.EntryLog,
-                    Amount = RestockAmount,
+                    Amount = int.Parse(RestockAmount),
                     ProductId = SelectedProduct.Id,
                     Product = SelectedProduct.ToProduct(),
                     SupplierId = SelectedProduct.SupplierId,
@@ -139,7 +147,7 @@ namespace SmartInventoryTracker.ViewModels
 
         public void ResetForm()
         {
-            _restockAmount = 0;
+            _restockAmount = string.Empty;
             IsValid = true;
         }
 

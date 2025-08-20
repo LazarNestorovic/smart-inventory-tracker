@@ -20,8 +20,8 @@ namespace SmartInventoryTracker.ViewModels
         private string _productCode;
         private CategoryDTO _selectedCategory;
         private SupplierDTO _selectedSupplier;
-        private int _quantity;
-        private int _minimumStock;
+        private string _quantity;
+        private string _minimumStock;
         private ProductDTO _originalProduct;
         
         public string ProductName
@@ -68,18 +68,18 @@ namespace SmartInventoryTracker.ViewModels
             }
         }
 
-        public int Quantity
+        public string Quantity
         {
             get => _quantity;
             set
             {
                 _quantity = value;
-                OnPropertyChanged();
                 ValidateForm();
+                OnPropertyChanged();
             }
         }
 
-        public int MinimumStock
+        public string MinimumStock
         {
             get => _minimumStock;
             set
@@ -120,9 +120,6 @@ namespace SmartInventoryTracker.ViewModels
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _supplierRepository = supplierRepository;
-
-            Quantity = 0;
-            MinimumStock = 0;
         }
 
         public void LoadData(ProductDTO selectedProduct)
@@ -145,8 +142,8 @@ namespace SmartInventoryTracker.ViewModels
 
             ProductName = product.Name;
             ProductCode = product.ProductCode;
-            Quantity = product.Quantity;
-            MinimumStock = product.MinimumStock;
+            Quantity = product.Quantity.ToString();
+            MinimumStock = product.MinimumStock.ToString();
             selectedProductId = product.Id;
 
             SelectedCategory = Categories.FirstOrDefault(c => c.Id == product.CategoryId);
@@ -222,8 +219,8 @@ namespace SmartInventoryTracker.ViewModels
                 ProductCode = ProductCode?.Trim(),
                 CategoryId = SelectedCategory?.Id ?? 0,
                 SupplierId = SelectedSupplier?.Id ?? 0,
-                Quantity = Quantity,
-                MinimumStock = MinimumStock
+                Quantity = int.Parse(Quantity),
+                MinimumStock = int.Parse(MinimumStock)
             };
             return new ProductDTO(p) ;
         }
@@ -266,13 +263,13 @@ namespace SmartInventoryTracker.ViewModels
                 IsValid = false;
             }
 
-            if (Quantity < 0)
+           if (string.IsNullOrWhiteSpace(Quantity) || !int.TryParse(Quantity, out int quantity) || quantity < 0)
             {
                 correct &= false;
                 IsValid = false;
             }
 
-            if (MinimumStock < 0)
+            if (string.IsNullOrWhiteSpace(MinimumStock) || !int.TryParse(MinimumStock, out int minimumStock) || minimumStock < 0)
             {
                 correct &= false;
                 IsValid = false;

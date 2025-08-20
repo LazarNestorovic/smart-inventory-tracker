@@ -32,7 +32,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
         {
             try
             {
-                UpdateButton.IsEnabled = false;
                 UpdateButton.Content = "Updating...";
 
                 bool success = _viewModel.UpdateCategory();
@@ -68,7 +67,6 @@ namespace SmartInventoryTracker.Views.WorkerViews
             }
             finally
             {
-                UpdateButton.IsEnabled = _viewModel.IsValid;
                 UpdateButton.Content = "Update Category";
             }
         }
